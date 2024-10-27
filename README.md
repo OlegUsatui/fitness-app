@@ -1,113 +1,139 @@
-# Vanilla App Template
+# Your Energy Fitness App API Documentation
 
-Цей проект було створено за допомогою Vite. Для знайомства та налаштування
-додаткових можливостей [звернись до документації](https://vitejs.dev/).
+## Overview
 
-## Створення репозиторію за шаблоном
+This project is a fitness-focused web application that helps users discover and track different exercises to achieve their fitness goals. The app features an API that provides a range of fitness-related functionalities, such as exercise filtering, detailed exercise information, rating, and subscription services. This documentation explains how to use the available API endpoints.
 
-Використовуй цей репозиторій організації GoIT як шаблон для створення
-репозиторію свого проекту. Для цього натисни на кнопку `«Use this template»` і
-обери опцію `«Create a new repository»`, як показано на зображенні.
+## API Endpoints
 
-![Creating repo from a template step 1](./assets/template-step-1.png)
+### 1. Exercise Filters
+- **Endpoint:** `/api/filters`
+- **Method:** `GET`
+- **Description:** Retrieve a list of filters based on different exercise criteria such as muscle groups, equipment, or body parts.
+- **Example Request:**
+  ```
+  GET https://your-energy.b.goit.study/api/filters?filter=Muscles&page=1&limit=12
+  ```
+  You can filter by different criteria (`filter` parameter), and pagination is handled through `page` and `limit` parameters.
 
-На наступному етапі відкриється сторінка створення нового репозиторію. Заповни
-поле його імені, переконайся, що репозиторій публічний, після чого натисни
-кнопку `«Create repository from template»`.
+### 2. List of Exercises
+- **Endpoint:** `/api/exercises`
+- **Method:** `GET`
+- **Description:** Get a list of exercises filtered by criteria like body part, muscle, equipment, or keyword.
+- **Example Request:**
+  ```
+  GET https://your-energy.b.goit.study/api/exercises?bodypart=back&muscles=lats&equipment=barbell&keyword=pull&page=1&limit=10
+  ```
+  This endpoint allows filtering by `bodypart`, `muscles`, `equipment`, and `keyword`. You can also manage pagination using `page` and `limit` parameters.
 
-![Creating repo from a template step 2](./assets/template-step-2.png)
+### 3. Detailed Exercise Information
+- **Endpoint:** `/api/exercises/{exerciseID}`
+- **Method:** `GET`
+- **Description:** Get detailed information about a specific exercise.
+- **Example Request:**
+  ```
+  GET https://your-energy.b.goit.study/api/exercises/{exerciseID}
+  ```
+  Replace `{exerciseID}` with the unique identifier for the exercise you want to get details about.
 
-Після того, як репозиторій буде створено, необхідно перейти в налаштування
-створеного репозиторію на вкладку `Settings` > `Actions` > `General` як показано
-на зображенні.
+### 4. Rate an Exercise
+- **Endpoint:** `/api/exercises/{exerciseID}/rating`
+- **Method:** `PATCH`
+- **Description:** Add or update the rating for a specific exercise.
+- **Example Request:**
+  ```
+  PATCH https://your-energy.b.goit.study/api/exercises/{exerciseID}/rating
+  ```
+  Replace `{exerciseID}` with the ID of the exercise.
 
-![Settings GitHub Actions permissions step 1](./assets/gh-actions-perm-1.png)
+### 5. Quote of the Day
+- **Endpoint:** `/api/quote`
+- **Method:** `GET`
+- **Description:** Get an inspirational quote for the day.
+- **Example Request:**
+  ```
+  GET https://your-energy.b.goit.study/api/quote
+  ```
 
-Проскроливши сторінку до самого кінця, в секції `«Workflow permissions»` обери
-опцію `«Read and write permissions»` і постав галочку в чекбоксі. Це необхідно
-для автоматизації процесу деплою проекту.
+### 6. Subscription for Exercise Updates
+- **Endpoint:** `/api/subscription`
+- **Method:** `POST`
+- **Description:** Subscribe to receive notifications about new exercises.
+- **Example Request:**
+  ```
+  POST https://your-energy.b.goit.study/api/subscription
+  ```
+  The request should include the user's email address for receiving updates.
 
-![Settings GitHub Actions permissions step 2](./assets/gh-actions-perm-2.png)
+### Header
+- The header includes a logo, navigation bar, and links to social media.
+- **Mobile Version:** The header contains a burger menu, allowing users to navigate easily.
+- **Tablet & Desktop Versions:** Displays the logo, navigation links, and social media links.
 
-Тепер у тебе є особистий репозиторій проекту, зі структурою файлів та папок
-репозиторію-шаблону. Далі працюй з ним, як з будь-яким іншим особистим
-репозиторієм, клонуй його собі на комп'ютер, пиши код, роби коміти та відправляй
-їх на GitHub.
+### Home Page
+- **Hero Section:** Displays a static hero section with the website title, subtitle, and popular tags.
+- **Filters Section:** Allows users to search for exercises based on categories such as body part, muscle, or equipment.
+- **Category/Exercise List Section:** Shows a list of categories or exercises depending on selected filters.
+- **Quote of the Day Section:** Displays an inspirational quote and information about the importance of daily exercise.
 
-## Підготовка до роботи
+### Exercise Cards
+- Each exercise card includes:
+  - Exercise name
+  - Calories burned in 3 minutes
+  - Target body part
+  - Purpose of the exercise
+  - Exercise rating
+  - A "Start" button to open a modal with more detailed information.
 
-1. Переконайся, що на комп'ютері встановлено LTS-версію Node.js.
-   [Скачай та встанови](https://nodejs.org/en/) її якщо необхідно.
-2. Встанови базові залежності проекту в терміналі командою `npm install`.
-3. Запусти режим розробки, виконавши в терміналі команду `npm run dev`.
-4. Перейдіть у браузері за адресою
-   [http://localhost:5173](http://localhost:5173). Ця сторінка буде автоматично
-   перезавантажуватись після збереження змін у файли проекту.
+### Modal Window - Exercise Details
+- Displays:
+  - Exercise video (if available)
+  - Exercise name
+  - Exercise rating and goal
+  - Target body part
+  - Popularity among users
+  - Calories burned per 3 minutes
+  - Short description
+  - "Add to Favorites" button
+  - "Give a Rating" button to rate the exercise (including a modal form for submitting ratings with email validation).
 
-## Файли і папки
+### Favorites Page
+- Displays:
+  - Quote of the Day
+  - List of user's favorite exercises, which are saved in local storage.
+  - Allows users to remove exercises from favorites.
 
-- Файли розмітки компонентів сторінки повинні лежати в папці `src/partials` та
-  імпортуватись до файлу `index.html`. Наприклад, файл з розміткою хедера
-  `header.html` створюємо у папці `partials` та імпортуємо в `index.html`.
-- Файли стилів повинні лежати в папці `src/css` та імпортуватись до HTML-файлів
-  сторінок. Наприклад, для `index.html` файл стилів називається `index.css`.
-- Зображення додавай до папки `src/img`. Збирач оптимізує їх, але тільки при
-  деплої продакшн версії проекту. Все це відбувається у хмарі, щоб не
-  навантажувати твій комп'ютер, тому що на слабких компʼютерах це може зайняти
-  багато часу.
+### Footer
+- Contains:
+  - Logo
+  - Links to social media (Facebook, Instagram, YouTube)
+  - Company slogan
+  - Subscription form for updates about new exercises
 
-## Деплой
+## Additional Features
+- **Favorites Section:** Users can add exercises to favorites, saved in local storage for persistence.
+- **Exercise Rating:** Users can rate exercises and see other ratings.
+- **Loader (Spinner):** Displayed during asynchronous requests.
+- **Scroll Up Button:** Allows users to return to the top of the page with a single click.
 
-Продакшн версія проекту буде автоматично збиратися та деплоїтись на GitHub
-Pages, у гілку `gh-pages`, щоразу, коли оновлюється гілка `main`. Наприклад,
-після прямого пуша або прийнятого пул-реквесту. Для цього необхідно у файлі
-`package.json` змінити значення прапора `--base=/<REPO>/`, для команди `build`,
-замінивши `<REPO>` на назву свого репозиторію, та відправити зміни на GitHub.
+## Technologies Used
+- **Frontend:** HTML, CSS, JavaScript
+- **Backend API:** RESTful API for retrieving and managing exercises and user interactions
 
-```json
-"build": "vite build --base=/<REPO>/",
-```
+## Getting Started
+1. Clone the repository.
+2. Install dependencies using `npm install`.
+3. Start the server with `npm start`.
+4. Access the app in your browser at `http://localhost:3000`.
 
-Далі необхідно зайти в налаштування GitHub-репозиторію (`Settings` > `Pages`) та
-виставити роздачу продакшн версії файлів з папки `/root` гілки `gh-pages`, якщо
-це не було зроблено автоматично.
+## Installation & Setup
+1. Ensure you have Node.js installed.
+2. Run `npm install` to install all dependencies.
+3. Use `npm start` to start the development server.
 
-![GitHub Pages settings](./assets/repo-settings.png)
+## Contribution
+Feel free to submit issues and pull requests to enhance the functionalities. Please follow the contribution guidelines.
 
-### Статус деплою
+## License
+This project is licensed under the MIT License.
 
-Статус деплою крайнього коміту відображається іконкою біля його ідентифікатора.
-
-- **Жовтий колір** - виконується збірка та деплой проекту.
-- **Зелений колір** - деплой завершився успішно.
-- **Червоний колір** - під час лінтингу, збірки чи деплою сталася помилка.
-
-Більш детальну інформацію про статус можна переглянути натиснувши на іконку, і в
-вікні, що випадає, перейти за посиланням `Details`.
-
-![Deployment status](./assets/deploy-status.png)
-
-### Жива сторінка
-
-Через якийсь час, зазвичай кілька хвилин, живу сторінку можна буде подивитися за
-адресою, вказаною на вкладці `Settings` > `Pages` в налаштуваннях репозиторію.
-Наприклад, ось посилання на живу версію для цього репозиторію
-
-[https://goitacademy.github.io/vanilla-app-template/](https://goitacademy.github.io/vanilla-app-template/).
-
-Якщо відкриється порожня сторінка, переконайся, що у вкладці `Console` немає
-помилок пов'язаних з неправильними шляхами до CSS та JS файлів проекту
-(**404**). Швидше за все у тебе неправильне значення прапора `--base` для
-команди `build` у файлі `package.json`.
-
-## Як це працює
-
-![How it works](./assets/how-it-works.png)
-
-1. Після кожного пуша у гілку `main` GitHub-репозиторію, запускається
-   спеціальний скрипт (GitHub Action) із файлу `.github/workflows/deploy.yml`.
-2. Усі файли репозиторію копіюються на сервер, де проект ініціалізується та
-   проходить лінтинг та збірку перед деплоєм.
-3. Якщо всі кроки пройшли успішно, зібрана продакшн версія файлів проекту
-   відправляється у гілку `gh-pages`. В іншому випадку, у лозі виконання скрипта
-   буде вказано в чому проблема.
